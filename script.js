@@ -101,7 +101,6 @@
 			vec3 getSample( float theta, vec3 axis ) {
 
 				float cosTheta = cos( theta );
-				// Rodrigues' axis-angle rotation
 				vec3 sampleDirection = vOutputDirection * cosTheta
 					+ cross( axis, vOutputDirection ) * sin( theta )
 					+ axis * dot( axis, vOutputDirection ) * ( 1.0 - cosTheta );
@@ -184,7 +183,6 @@
 
 		varying vec3 vOutputDirection;
 
-		// RH coordinate system; PMREM face-indexing convention
 		vec3 getDirection( vec2 uv, float face ) {
 
 			uv = 2.0 * uv - 1.0;
@@ -193,30 +191,30 @@
 
 			if ( face == 0.0 ) {
 
-				direction = direction.zyx; // ( 1, v, u ) pos x
+				direction = direction.zyx; 
 
 			} else if ( face == 1.0 ) {
 
 				direction = direction.xzy;
-				direction.xz *= -1.0; // ( -u, 1, -v ) pos y
+				direction.xz *= -1.0; 
 
 			} else if ( face == 2.0 ) {
 
-				direction.x *= -1.0; // ( -u, v, 1 ) pos z
+				direction.x *= -1.0; 
 
 			} else if ( face == 3.0 ) {
 
 				direction = direction.zyx;
-				direction.xz *= -1.0; // ( -1, v, -u ) neg x
+				direction.xz *= -1.0; 
 
 			} else if ( face == 4.0 ) {
 
 				direction = direction.xzy;
-				direction.xy *= -1.0; // ( -u, -1, v ) neg y
+				direction.xy *= -1.0; 
 
 			} else if ( face == 5.0 ) {
 
-				direction.z *= -1.0; // ( u, v, -1 ) neg z
+				direction.z *= -1.0; 
 
 			}
 
@@ -363,7 +361,45 @@ const VI_SRT_URL = "public/viet.srt";
 document.addEventListener("DOMContentLoaded", () => {
   const soundBtn = document.getElementById("sound");
   const audio = document.getElementById("bg-music");
+  const volumeSlider = document.getElementById("volume-slider");
+  const lyricBox = document.getElementById("lyric-box");
   if (audio) { audio.loop = true; audio.src = MUSIC_URL; audio.onerror = () => console.error("Không nạp được nhạc:", MUSIC_URL); } 
+
+  const updateLyricVisibility = () => {
+    if (!lyricBox || !audio) return;
+    if (audio.paused || audio.volume === 0) {
+      lyricBox.classList.add("is-hidden");
+    } else {
+      lyricBox.classList.remove("is-hidden");
+    }
+  };
+
+  if (audio) {
+    audio.addEventListener("play", updateLyricVisibility);
+    audio.addEventListener("pause", updateLyricVisibility);
+    audio.addEventListener("volumechange", updateLyricVisibility);
+  }
+
+  let lastVolume = audio && audio.volume > 0 ? audio.volume : 1;
+
+  if (volumeSlider && audio) {
+    volumeSlider.value = String(audio.volume);
+    volumeSlider.addEventListener("input", () => {
+      const vol = parseFloat(volumeSlider.value);
+      audio.volume = vol;
+      if (vol > 0) {
+        lastVolume = vol;
+        if (audio.paused) {
+          audio.play();
+          removeUnlockListeners();
+        }
+      }
+      if (soundBtn) {
+        soundBtn.setAttribute("aria-pressed", !audio.paused && vol > 0 ? "true" : "false");
+      }
+      updateLyricVisibility();
+    });
+  }
 
   
   const startAudio = () => {
@@ -399,10 +435,16 @@ document.addEventListener("DOMContentLoaded", () => {
     soundBtn.addEventListener("click", (e) => {
       e.stopPropagation(); 
       if (audio.paused) {
+        if (audio.volume === 0) {
+          audio.volume = lastVolume > 0 ? lastVolume : 1;
+        }
+        if (volumeSlider) volumeSlider.value = String(audio.volume);
         audio.play();
         soundBtn.setAttribute("aria-pressed", "true");
       } else {
+        if (audio.volume > 0) lastVolume = audio.volume;
         audio.pause();
+        if (volumeSlider) volumeSlider.value = "0";
         soundBtn.setAttribute("aria-pressed", "false");
       }
       removeUnlockListeners();

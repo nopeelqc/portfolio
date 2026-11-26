@@ -28,13 +28,20 @@
     </section>
     <div class="corner">
       <span>Scroll to wander</span><i></i>
-      <button class="sound" id="sound" aria-pressed="false" aria-label="Phát / Tắt nhạc">
-        <svg viewBox="0 0 24 24">
-          <path d="M4 9.5v5h3.5L12 18V6L7.5 9.5Z"/>
-          <path class="w" d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/>
-          <path class="x" d="m16 10 4 4m0-4-4 4"/>
-        </svg>
-      </button>
+      <div class="sound-control">
+        <div class="volume-popover">
+          <div class="volume-popover-inner">
+            <input type="range" id="volume-slider" class="volume-slider" min="0" max="1" step="0.01" value="1" aria-label="Điều chỉnh âm lượng">
+          </div>
+        </div>
+        <button class="sound" id="sound" aria-pressed="false" aria-label="Phát / Tắt nhạc">
+          <svg viewBox="0 0 24 24">
+            <path d="M4 9.5v5h3.5L12 18V6L7.5 9.5Z"/>
+            <path class="w" d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/>
+            <path class="x" d="m16 10 4 4m0-4-4 4"/>
+          </svg>
+        </button>
+      </div>
     </div>
   </div>
   <div class="loader" id="loader"><span></span></div>
