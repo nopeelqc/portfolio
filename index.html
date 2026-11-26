@@ -1,38 +1,51 @@
 <!doctype html>
-<html lang="en">
+<html lang="vi">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Lương Quốc Cường</title>
-<meta name="description" content="A regenerative design studio. Wander through a night valley of flowers that grows as you move.">
-<link rel="icon" href="/fern-mark.svg" type="image/svg+xml">
-<link rel="stylesheet" href="style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Lương Quốc Cường</title>
+  <meta name="description" content="Personal portfolio and interactive space of Lương Quốc Cường.">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div id="valley" aria-hidden="true"><div class="js-canvas-container"></div></div>
-<div class="ui" id="ui">
-  <header>
-    <a class="logo" href="#" aria-label="Fernhollow">_l.cun.04_</a>
-    <nav aria-label="Main"><a href="#">Work</a><a href="#">About</a><a href="#">Journal</a><a class="pill" href="#">Let’s talk</a></nav>
-  </header>
-  <section class="hero">
-    <h1>Status: 200 Alive</h1>
-    <p class="cap">Eat. Sleep. Debug. Repeat.<br>404 Limits Not Found.</p>
-    <a class="go" href="#" id="go" aria-label="See our work"><svg viewBox="0 0 24 24"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
-  </section>
-  <div class="corner"><span>Scroll to wander</span><i></i>
-    <button class="sound" id="sound" aria-pressed="false" aria-label="Ambient sound"><svg viewBox="0 0 24 24"><path d="M4 9.5v5h3.5L12 18V6L7.5 9.5Z"/><path class="w" d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/><path class="x" d="m16 10 4 4m0-4-4 4"/></svg></button>
+  <div id="valley" aria-hidden="true"><div class="js-canvas-container"></div></div>
+  <div class="ui" id="ui">
+    <header>
+      <a class="logo" href="#" aria-label="Lương Quốc Cường">_l.cun.04_</a>
+      <nav aria-label="Main">
+        <a href="#">Work</a>
+        <a href="#">About</a>
+        <a href="#">Journal</a>
+        <a class="pill" href="#">Let’s talk</a>
+      </nav>
+    </header>
+    <section class="hero">
+      <h1>Status: 200 Alive</h1>
+      <p class="cap">Eat. Sleep. Debug. Repeat.<br>404 Limits Not Found.</p>
+      <a class="go" href="#" id="go" aria-label="See my work">
+        <svg viewBox="0 0 24 24"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
+      </a>
+    </section>
+    <div class="corner">
+      <span>Scroll to wander</span><i></i>
+      <button class="sound" id="sound" aria-pressed="false" aria-label="Phát / Tắt nhạc">
+        <svg viewBox="0 0 24 24">
+          <path d="M4 9.5v5h3.5L12 18V6L7.5 9.5Z"/>
+          <path class="w" d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/>
+          <path class="x" d="m16 10 4 4m0-4-4 4"/>
+        </svg>
+      </button>
+    </div>
   </div>
-</div>
-<div class="loader" id="loader"><span></span></div>
+  <div class="loader" id="loader"><span></span></div>
 
-<audio id="bg-music" src="sound.mp3" loop preload="auto"></audio>
+  <audio id="bg-music" src="public/sound.mp3" loop preload="auto"></audio>
 
-<div class="lyric-wrapper" id="lyric-box">
-  <div class="lyric-col" id="col-zh"></div>
-  <div class="lyric-col" id="col-vi"></div>
-</div>
+  <div class="lyric-wrapper" id="lyric-box">
+    <div class="lyric-col" id="col-zh"></div>
+    <div class="lyric-col" id="col-vi"></div>
+  </div>
 
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
